@@ -27,7 +27,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    // baseURL: 'https://demoblaze.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -38,8 +38,24 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'chromium-dev',
+      use: { ...devices['Desktop Chrome'],
+          baseURL: 'https://demoblaze.com'
+       },
+    },
+    // example for staging
+    {
+      name: 'chromium-stg',
+      use: { ...devices['Desktop Chrome'],
+          baseURL: 'https://staging.demoblaze.com'
+       },
+    },
+    // example for production
+    {
+      name: 'chromium-prod',
+      use: { ...devices['Desktop Chrome'],
+          baseURL: 'https://prod.demoblaze.com'
+       },
     },
 
     // {
