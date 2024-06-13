@@ -11,6 +11,10 @@ export class HomePage {
     private readonly menuPhones : Locator;
     private readonly menuLaptops : Locator;
     private readonly menuMonitors : Locator;
+    private readonly popUpContact : Locator;
+    private readonly popUpaAboutus : Locator;
+    private readonly btnClosePopUpContact : Locator;
+    private readonly btnClosePopUpAboutUs : Locator;
     
     constructor(public readonly page: Page) {
         this.menuHome = this.page.getByRole('link', { name: 'Home' });
@@ -23,6 +27,10 @@ export class HomePage {
         this.menuPhones = this.page.getByRole('link', { name: 'Phones' });
         this.menuLaptops = this.page.getByRole('link', { name: 'Laptops' });
         this.menuMonitors = this.page.getByRole('link', { name: 'Monitors' });
+        this.popUpContact = this.page.getByRole('heading', { name: 'New message' });
+        this.popUpaAboutus = this.page.getByRole('heading', { name: 'About us', exact: true });
+        this.btnClosePopUpContact = this.page.getByLabel('New message').getByText('Close');
+        this.btnClosePopUpAboutUs = this.page.locator('#videoModal').getByText('Close', { exact: true });
     }
     
     async isReady() {
@@ -36,6 +44,36 @@ export class HomePage {
         await expect(this.menuPhones).toBeVisible();
         await expect(this.menuLaptops).toBeVisible();
         await expect(this.menuMonitors).toBeVisible();
+    }
+
+    async clickMenuHome() {
+        await this.menuHome.click();
+        await expect(this.page).toHaveURL('https://demoblaze.com/index.html');
+    }
+
+    async clickMenuContact() {
+        await this.menuContact.click();
+        await expect(this.popUpContact).toBeVisible();
+    }
+
+    async closePopUpContact() {
+        await this.btnClosePopUpContact.click();
+        await expect(this.popUpContact).not.toBeVisible();
+    }
+
+    async clickMenuAboutUs() {
+        await this.menuAboutUs.click();
+        await expect(this.popUpaAboutus).toBeVisible();
+    }
+
+    async closePopUpAboutUs() {
+        await this.btnClosePopUpAboutUs.click();
+        await expect(this.popUpaAboutus).not.toBeVisible();
+    }
+
+    async clickMenuCart() {
+        await this.menuCart.click();
+        await expect(this.page).toHaveURL('https://demoblaze.com/cart.html');
     }
 }
 
